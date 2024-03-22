@@ -1,6 +1,6 @@
 export default function Calculator() {
   return (
-    <div className="flex flex-row w-4/5 border border-gray-400">
+    <div className="flex flex-row w-3/5 border border-gray-400">
       <div className="w-1/2 justify-center bg-gray-100 p-4">
         <div className="flex flex-col">
           <label htmlFor="input1" className="font-bold text-sm pb-2">
