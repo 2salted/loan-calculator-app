@@ -1,6 +1,6 @@
 export default function Calculator() {
   return (
-    <div className="flex flex-row w-3/5 border border-gray-400">
+    <div className="flex flex-row lg:w-4/5 w-5/6 border border-gray-400">
       <div className="w-1/2 justify-center bg-gray-100 p-4">
         <div className="flex flex-col">
           <label htmlFor="input1" className="font-bold text-sm pb-2">
@@ -10,13 +10,21 @@ export default function Calculator() {
             id="input1"
             className="border rounded-md p-2 outline-none border-gray-400"
           ></input>
-          <label htmlFor="input1" className="font-bold text-sm pb-2 pt-4">
+          <label htmlFor="input2" className="font-bold text-sm pb-2 pt-4">
             Loan term in years
           </label>
           <input
-            id="input1"
+            id="input2"
             className="border rounded-md p-2 outline-none border-gray-400"
           ></input>
+          <label htmlFor="input3" className="font-bold text-sm pb-2 pt-4">
+            Interest per year
+          </label>
+          <input
+            id="input3"
+            className="border rounded-md p-2 outline-none border-gray-400"
+          ></input>
+          <button className="bg-[#0055ff] rounded-md text-white px-4">Calculate</button>
         </div>
       </div>
       <div className="w-1/2 p-4">
@@ -26,11 +34,15 @@ export default function Calculator() {
             <span className="font-bold">$</span>
             <div className="text-center font-black text-5xl pb-4">93.2</div>
           </div>
-          <div className="flex flex-row justify-between py-2">
+          <div className="flex flex-row justify-between py-3">
             <div className="font-medium text-sm">Total principal paid:</div>
-            <div className="font-medium text-sm">$5000</div>
+            <div className="font-medium text-sm">$5,000</div>
           </div>
           <hr />
+          <div className="flex flex-row justify-between py-3">
+            <div className="font-medium text-sm">Total interest paid:</div>
+            <div className="font-medium text-sm">$592.91</div>
+          </div>
         </div>
       </div>
     </div>
