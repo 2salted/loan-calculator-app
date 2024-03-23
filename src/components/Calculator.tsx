@@ -4,6 +4,13 @@ export default function Calculator() {
   const [loanAmount, setLoanAmount] = useState<string>("");
   const [loanTerm, setLoanTerm] = useState<string>("");
   const [interestRate, setInterestRate] = useState<string>("");
+  const [result, setResult] = useState<number>();
+
+  if (result) {
+    console.log("result is defined");
+  } else if (!result) {
+    console.log("result is undefined");
+  }
 
   return (
     <div className="flex md:flex-row flex-col lg:w-4/6 w-5/6 border border-gray-400">
@@ -49,11 +56,11 @@ export default function Calculator() {
               onClick={() => {
                 if (loanAmount && loanTerm && interestRate) {
                   let percentage = parseFloat(interestRate) / 100;
-                  console.log("percentage: " + percentage);
                   let yearlyPayment = parseFloat(loanAmount) * percentage;
-                  console.log("yearly payment: " + yearlyPayment);
                   let monthlyPayment = yearlyPayment / 12;
-                  console.log("yearly payment: " + monthlyPayment);
+                  setResult(monthlyPayment);
+                } else if (!loanAmount || !loanTerm || !interestRate) {
+                  setResult(undefined);
                 }
               }}
             >
@@ -65,18 +72,22 @@ export default function Calculator() {
       <div className="md:w-1/2 w-full p-4">
         <div className="flex flex-col">
           <div className="text-center pb-3">Monthly Payments</div>
-          <div className="flex flex-row justify-center">
-            <span className="font-bold">$</span>
-            <div className="text-center font-black text-5xl pb-4">93.2</div>
-          </div>
+          {result && (
+            <div className="flex flex-row justify-center">
+              <span className="font-bold">$</span>
+              <div className="text-center font-black text-5xl pb-4">
+                {result?.toFixed(2)}
+              </div>
+            </div>
+          )}
           <div className="flex flex-row justify-between py-3">
             <div className="font-medium text-sm">Total principal paid:</div>
-            <div className="font-medium text-sm">$5,000</div>
+            {result && <div className="font-medium text-sm">${loanAmount}</div>}
           </div>
           <hr />
           <div className="flex flex-row justify-between py-3">
             <div className="font-medium text-sm">Total interest paid:</div>
-            <div className="font-medium text-sm">$592.91</div>
+            {result && <div className="font-medium text-sm">$592.91</div>}
           </div>
         </div>
       </div>
