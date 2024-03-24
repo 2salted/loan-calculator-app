@@ -5,12 +5,7 @@ export default function Calculator() {
   const [loanTerm, setLoanTerm] = useState<string>("");
   const [interestRate, setInterestRate] = useState<string>("");
   const [result, setResult] = useState<number>();
-
-  if (result) {
-    console.log("result is defined");
-  } else if (!result) {
-    console.log("result is undefined");
-  }
+  const [totalInterest, setTotalInterest] = useState<number | undefined>();
 
   return (
     <div className="flex md:flex-row flex-col lg:w-4/6 w-5/6 border border-gray-400">
@@ -58,6 +53,10 @@ export default function Calculator() {
                   let percentage = parseFloat(interestRate) / 100;
                   let yearlyPayment = parseFloat(loanAmount) * percentage;
                   let monthlyPayment = yearlyPayment / 12;
+
+                  let interestRateTotal =
+                    parseFloat(loanAmount) * percentage * parseFloat(loanTerm);
+                  setTotalInterest(interestRateTotal);
                   setResult(monthlyPayment);
                 } else if (!loanAmount || !loanTerm || !interestRate) {
                   setResult(undefined);
@@ -72,22 +71,15 @@ export default function Calculator() {
       <div className="md:w-1/2 w-full p-4">
         <div className="flex flex-col">
           <div className="text-center pb-3">Monthly Payments</div>
-          {result && (
-            <div className="flex flex-row justify-center">
-              <span className="font-bold">$</span>
-              <div className="text-center font-black text-5xl pb-4">
-                {result?.toFixed(2)}
-              </div>
-            </div>
-          )}
+          <div className="flex flex-row justify-center">$</div>
           <div className="flex flex-row justify-between py-3">
             <div className="font-medium text-sm">Total principal paid:</div>
-            {result && <div className="font-medium text-sm">${loanAmount}</div>}
+            <div className="font-medium text-sm">${1000}</div>
           </div>
           <hr />
           <div className="flex flex-row justify-between py-3">
             <div className="font-medium text-sm">Total interest paid:</div>
-            {result && <div className="font-medium text-sm">$592.91</div>}
+            <div className="font-medium text-sm">{totalInterest}</div>
           </div>
         </div>
       </div>
