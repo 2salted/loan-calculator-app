@@ -73,21 +73,37 @@ export default function Calculator() {
           <div className="text-center pb-3">Monthly Payments</div>
           {result && (
             <div className="flex flex-row justify-center">
-              <span className="font-bold">$</span>
+              <span className="font-bold">€</span>
               <div className="text-center font-black text-5xl pb-4">
                 {result?.toFixed(2)}
               </div>
             </div>
           )}
-          <div className="flex flex-row justify-between py-3">
-            <div className="font-medium text-sm">Total principal paid:</div>
-            {result && <div className="font-medium text-sm">${loanAmount}</div>}
-          </div>
-          <hr />
-          <div className="flex flex-row justify-between py-3">
-            <div className="font-medium text-sm">Total interest paid:</div>
-            {result && <div className="font-medium text-sm">$592.91</div>}
-          </div>
+          {result && (
+            <div className="flex flex-row justify-between py-3">
+              <div className="font-medium text-sm">Total principal paid:</div>
+              <div className="font-medium text-sm">
+                {parseFloat(loanAmount).toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "EUR",
+                  minimumFractionDigits: 2,
+                })}
+              </div>
+            </div>
+          )}
+          {result && <hr />}
+          {result && (
+            <div className="flex flex-row justify-between py-3">
+              <div className="font-medium text-sm">Total interest paid:</div>
+              <div className="font-medium text-sm">
+                {totalInterest?.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "EUR",
+                  minimumFractionDigits: 2,
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
