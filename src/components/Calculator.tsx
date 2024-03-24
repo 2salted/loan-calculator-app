@@ -71,15 +71,22 @@ export default function Calculator() {
       <div className="md:w-1/2 w-full p-4">
         <div className="flex flex-col">
           <div className="text-center pb-3">Monthly Payments</div>
-          <div className="flex flex-row justify-center">$</div>
+          {result && (
+            <div className="flex flex-row justify-center">
+              <span className="font-bold">$</span>
+              <div className="text-center font-black text-5xl pb-4">
+                {result?.toFixed(2)}
+              </div>
+            </div>
+          )}
           <div className="flex flex-row justify-between py-3">
             <div className="font-medium text-sm">Total principal paid:</div>
-            <div className="font-medium text-sm">${1000}</div>
+            {result && <div className="font-medium text-sm">${loanAmount}</div>}
           </div>
           <hr />
           <div className="flex flex-row justify-between py-3">
             <div className="font-medium text-sm">Total interest paid:</div>
-            <div className="font-medium text-sm">{totalInterest}</div>
+            {result && <div className="font-medium text-sm">$592.91</div>}
           </div>
         </div>
       </div>
