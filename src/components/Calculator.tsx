@@ -1,10 +1,13 @@
+"use strict"
+
 import { useState } from "react";
 
 export default function Calculator() {
   const [loanAmount, setLoanAmount] = useState<string>("");
   const [loanTerm, setLoanTerm] = useState<string>("");
   const [interestRate, setInterestRate] = useState<string>("");
-  const [result, setResult] = useState();
+  const [result, setResult] = useState<number>();
+  const [totalInterest, setTotalInterest] = useState<number | undefined>();
 
   return (
     <div className="flex md:flex-row flex-col lg:w-4/6 w-5/6 border border-gray-400">
@@ -47,14 +50,21 @@ export default function Calculator() {
             <button
               type="button"
               className="bg-[#0055ff] rounded-md text-white py-2 px-5"
-              onClick={(e) => {
+              onClick={() => {
                 if (loanAmount && loanTerm && interestRate) {
-                  let monthlyInterest = (interestRate / 100) / 12
-                  let loanTermInMonth = loanTerm * 12
-                  let finalResult = loanAmount * (monthlyInterest * (1 + monthlyInterest) ** loanTermInMonth) / ((1 + monthlyInterest) ** loanTermInMonth - 1)
-                  setResult(finalResult)
-                } else if (!loanTerm && !loanAmount && !interestRate) {
-                  setResult('')
+                  let monthlyInterest = parseFloat(interestRate) / 100 / 12;
+                  let loanTermInMonth = parseFloat(loanTerm) * 12;
+                  let finalResult =
+                    (parseFloat(loanAmount) *
+                      (monthlyInterest *
+                        (1 + monthlyInterest) ** loanTermInMonth)) /
+                      ((1 + monthlyInterest) ** loanTermInMonth - 1);
+                  let totalInterestVar = (finalResult * loanTermInMonth - parseFloat(loanAmount))
+                  setTotalInterest(totalInterestVar)
+                  setResult(finalResult);
+                } else if (!loanTerm || !loanAmount || !interestRate) {
+                  setResult(undefined);
+                  setTotalInterest(undefined)
                 }
               }}
             >
