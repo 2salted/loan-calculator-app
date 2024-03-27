@@ -53,7 +53,7 @@ export default function Calculator() {
                   let percentage = parseFloat(interestRate) / 100;
                   let yearlyPayment = parseFloat(loanAmount) * percentage;
                   let monthlyPayment = yearlyPayment / 12;
-
+                  console.log(yearlyPayment);
                   let interestRateTotal =
                     parseFloat(loanAmount) * percentage * parseFloat(loanTerm);
                   setTotalInterest(interestRateTotal);
