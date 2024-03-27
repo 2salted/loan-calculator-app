@@ -4,8 +4,7 @@ export default function Calculator() {
   const [loanAmount, setLoanAmount] = useState<string>("");
   const [loanTerm, setLoanTerm] = useState<string>("");
   const [interestRate, setInterestRate] = useState<string>("");
-  const [result, setResult] = useState<number>();
-  const [totalInterest, setTotalInterest] = useState<number | undefined>();
+  const [result, setResult] = useState();
 
   return (
     <div className="flex md:flex-row flex-col lg:w-4/6 w-5/6 border border-gray-400">
@@ -48,18 +47,14 @@ export default function Calculator() {
             <button
               type="button"
               className="bg-[#0055ff] rounded-md text-white py-2 px-5"
-              onClick={() => {
+              onClick={(e) => {
                 if (loanAmount && loanTerm && interestRate) {
-                  let percentage = parseFloat(interestRate) / 100;
-                  let yearlyPayment = parseFloat(loanAmount) * percentage;
-                  let monthlyPayment = yearlyPayment / 12;
-                  console.log(yearlyPayment);
-                  let interestRateTotal =
-                    parseFloat(loanAmount) * percentage * parseFloat(loanTerm);
-                  setTotalInterest(interestRateTotal);
-                  setResult(monthlyPayment);
-                } else if (!loanAmount || !loanTerm || !interestRate) {
-                  setResult(undefined);
+                  let monthlyInterest = (interestRate / 100) / 12
+                  let loanTermInMonth = loanTerm * 12
+                  let finalResult = loanAmount * (monthlyInterest * (1 + monthlyInterest) ** loanTermInMonth) / ((1 + monthlyInterest) ** loanTermInMonth - 1)
+                  setResult(finalResult)
+                } else if (!loanTerm && !loanAmount && !interestRate) {
+                  setResult('')
                 }
               }}
             >
